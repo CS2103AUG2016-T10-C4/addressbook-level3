@@ -44,18 +44,27 @@ public class FindCommand extends Command {
      */
     private List<ReadOnlyPerson> getPersonsWithNameContainingAnyKeyword(Set<String> keywords) {
         final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
-        for (ReadOnlyPerson person : addressBook.getAllPersons()) {
-            final Set<String> wordsInName = new HashSet<>(person.getName().getWordsInName());
-            if (!Collections.disjoint(wordsInName, keywords) && person.getName().isFavourite()) {
-                matchedPersons.add(person);
-            }
-        }
         
-        for (ReadOnlyPerson person : addressBook.getAllPersons()) {
-            final Set<String> wordsInName = new HashSet<>(person.getName().getWordsInName());
-            if (!Collections.disjoint(wordsInName, keywords) && !person.getName().isFavourite()) {
-                matchedPersons.add(person);
-            }
+        if(keywords.equals("favourite")){
+	        for (ReadOnlyPerson person : addressBook.getAllPersons()) {
+	            if (person.getName().isFavourite()) {
+	                matchedPersons.add(person);
+	            }
+	        }
+        } else {
+	        for (ReadOnlyPerson person : addressBook.getAllPersons()) {
+	            final Set<String> wordsInName = new HashSet<>(person.getName().getWordsInName());
+	            if (!Collections.disjoint(wordsInName, keywords) && person.getName().isFavourite()) {
+	                matchedPersons.add(person);
+	            }
+	        }
+	        
+	        for (ReadOnlyPerson person : addressBook.getAllPersons()) {
+	            final Set<String> wordsInName = new HashSet<>(person.getName().getWordsInName());
+	            if (!Collections.disjoint(wordsInName, keywords) && !person.getName().isFavourite()) {
+	                matchedPersons.add(person);
+	            }
+	        }
         }
         return matchedPersons;
     }
