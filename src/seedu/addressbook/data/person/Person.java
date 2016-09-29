@@ -11,7 +11,6 @@ import java.util.Objects;
 public class Person implements ReadOnlyPerson {
 
     private Name name;
-    private boolean isFavourite;
     private Phone phone;
     private Email email;
     private Address address;
@@ -84,13 +83,5 @@ public class Person implements ReadOnlyPerson {
     public String toString() {
         return getAsTextShowAll();
     }
-
-	public boolean isFavourite() {
-		return isFavourite;
-	}
-
-	public void setFavourite(boolean isFavourite) {
-		this.isFavourite = isFavourite;
-	}
-
+    
 }
