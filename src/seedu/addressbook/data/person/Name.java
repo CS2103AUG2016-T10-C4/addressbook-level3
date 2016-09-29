@@ -16,14 +16,16 @@ public class Name {
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
     public final String fullName;
+    public final boolean isFavourite;
 
     /**
      * Validates given name.
      *
      * @throws IllegalValueException if given name string is invalid.
      */
-    public Name(String name) throws IllegalValueException {
-        name = name.trim();
+    public Name(String name, boolean isFavourite) throws IllegalValueException {
+    	this.isFavourite = isFavourite;
+    	name = name.trim();
         if (!isValidName(name)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
