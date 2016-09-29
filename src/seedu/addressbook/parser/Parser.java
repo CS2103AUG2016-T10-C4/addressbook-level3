@@ -20,7 +20,7 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     public static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
+            Pattern.compile("(?<isNameFavourite>p?)(?<name>[^/]+)"
                     + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
                     + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
@@ -104,6 +104,7 @@ public class Parser {
         try {
             return new AddCommand(
                     matcher.group("name"),
+                    isFavouritePrefixPresent(matcher.group("isNameFavourite")),
 
                     matcher.group("phone"),
                     isPrivatePrefixPresent(matcher.group("isPhonePrivate")),
@@ -126,6 +127,13 @@ public class Parser {
      */
     private static boolean isPrivatePrefixPresent(String matchedPrefix) {
         return matchedPrefix.equals("p");
+    }
+    
+    /**
+     * Checks whether the favourite prefix of a name in the add command's arguments string is present.
+     */
+    private static boolean isFavouritePrefixPresent(String matchedPrefix) {
+        return matchedPrefix.equals("f/");
     }
 
     /**
